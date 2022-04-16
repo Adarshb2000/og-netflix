@@ -1,6 +1,7 @@
-import * as path from 'path'
-import * as fs from 'fs'
+import path from 'path'
+import fs from 'fs'
 import { tempPath } from './config.js'
+import hashFunction from './hash-function.js'
 
 const getVideos = (directory) => {
   const filesInDir = fs.readdirSync(directory)
@@ -11,10 +12,10 @@ const getVideos = (directory) => {
     })
     return files
   } else {
-    return filesInDir.map((val) => {
-      const id = 1e9 + Math.floor(Math.random() * 1e9)
-      tempPath[id] = path.join(directory, val)
-      return [val, id]
+    return filesInDir.map((file) => {
+      const id = hashFunction(directory + '/' + file)
+      tempPath[id] = path.join(directory, file)
+      return [file, id]
     })
   }
 }

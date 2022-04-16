@@ -21,3 +21,8 @@ export const verifyToken = (req, res, next) => {
     }
   }
 }
+
+export const verifyToken2 = (token) => {
+  jsonwebtoken.verify(token, key)
+  return true
+}
